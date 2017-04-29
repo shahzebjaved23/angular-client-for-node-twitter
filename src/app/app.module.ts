@@ -11,6 +11,7 @@ import { ChartComponent } from './chart/chart.component';
 import { PlayerinfoComponent } from './playerinfo/playerinfo.component';
 import { FormComponent } from './form/form.component';
 import { ChartModule } from 'angular2-chartjs';
+import { MainImageComponent } from './main-image/main-image.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChartModule } from 'angular2-chartjs';
     TweetsComponent,
     ChartComponent,
     PlayerinfoComponent,
-    FormComponent
+    FormComponent,
+    MainImageComponent
   ],
   imports: [
     BrowserModule,

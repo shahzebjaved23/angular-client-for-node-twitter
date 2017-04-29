@@ -1,0 +1,23 @@
+.hero {
+	text-align: center;
+	background-image: url("../../assets/img/hero.jpg");
+	height: 500px;
+}
+
+.hero .hero-heading{
+	color:white;
+	padding: 100px 0 50px 0;
+	font-size: 50px;
+}
+
+.hero .hero-paragraph{
+	color: white;
+	width: 600px;
+	margin: auto;
+	padding-bottom: 50px;
+}
+
+.hero-search{
+	margin:auto;
+	width: 300px;
+}
