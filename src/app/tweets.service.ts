@@ -9,6 +9,6 @@ export class TweetsService {
 	url = "https://node-twitter-123.herokuapp.com"
 
 	getTweets(player:String,team:String,author:String){
-		return this.http.get(this.url+"/find?player="+player+"&team="+team+"&author="+author)
+		return this.http.get(this.url+"/getTweetsByRest?player="+player+"&team="+team+"&author="+author)
 	}
 }

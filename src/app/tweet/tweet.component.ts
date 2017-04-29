@@ -19,7 +19,7 @@ export class TweetComponent implements OnInit {
   constructor(private tweetservice: TweetsService) { }
 
   ngOnInit() {
-  	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
+  	$(this.text.nativeElement).html(this.linkify(this.tweet.tweet.text))
   }
 
   linkify(inputText: String){
@@ -37,7 +37,27 @@ export class TweetComponent implements OnInit {
 		replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
 		replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
 
-		return replacedText;
+    var replacedmentions = this.linkify_at_mentions(replacedText);
+    var replacedhash = this.linkify_hash_tags(replacedmentions);
+
+    // console.log(replacedText)
+
+		return replacedhash;
   }
+
+  linkify_at_mentions(input:String){
+    var replacePattern = /(^|\s|[^\w\d])@(\w+)/gim;
+    var replacedText = input.replace(replacePattern,'$1<a href="http://domain.com/$2">@$2</a>') 
+    console.log(replacedText)
+    return replacedText;
+  } 
+
+  linkify_hash_tags(input:String){
+    var replacePatterns = /(^|\s|[^\w\d])#(\w+)/gim;
+    var replacedText = input.replace(replacePatterns,'$1<a href="http://domain.com/$2">#$2</a>')
+    return replacedText;
+  }
+
+
 
 }

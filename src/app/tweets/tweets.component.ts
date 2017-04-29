@@ -28,7 +28,7 @@ export class TweetsComponent implements OnInit {
 
 		this.tweetsservice.getTweets(this.player,this.team,this.author).subscribe(
 			(tweets)=> {
-				this.tweets = tweets.json().statuses;
+				this.tweets = tweets.json();
 			}
 		);
 

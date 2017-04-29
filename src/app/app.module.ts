@@ -7,13 +7,19 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TweetComponent } from './tweet/tweet.component';
 import { TweetsComponent } from './tweets/tweets.component';
+import { ChartComponent } from './chart/chart.component';
+import { PlayerinfoComponent } from './playerinfo/playerinfo.component';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TweetComponent,
-    TweetsComponent
+    TweetsComponent,
+    ChartComponent,
+    PlayerinfoComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
