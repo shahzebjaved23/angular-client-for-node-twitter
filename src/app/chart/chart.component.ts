@@ -1,7 +1,7 @@
 import { Component, OnInit,ElementRef, ViewChild } from '@angular/core';
 import * as Chart from 'chart.js';
-import * as ChartConfiguration from 'chart.js'
-// import Chart = require("chart.js");
+import { ChartModule } from 'angular2-chartjs';
+import { TweetsService } from "../tweets.service";
 
 @Component({
   selector: 'app-chart',
@@ -10,39 +10,51 @@ import * as ChartConfiguration from 'chart.js'
 })
 export class ChartComponent implements OnInit {
 
+
+	type;
+	data;
+	options;
+	frequency;
+	labels;
  
 
   @ViewChild('line') line: ElementRef;
 
-  constructor() { }
+  constructor(private tweetservice:TweetsService) { }
 
   ngOnInit() {
-    let lineCtx = this.line.nativeElement.getContext('2d');
 
-    var data = {
-        labels: [
-            "Value A",
-            "Value B"
-        ],
-        datasets: [
-            {
-                data: [101342, 55342],   // Example data
-                backgroundColor: [
-                    "#1fc8f8",
-                    "#76a346"
-                ]
-            }]
-    };
+	this.type = 'line';
 
-    var chart = new Chart(lineCtx,
-	        {
-	            type: 'doughnut',
-	            data: data,
-	            options: {
-	                cutoutPercentage: 50
-	            }
-	        }
-    	);
-   }
+	this.tweetservice.getFrequency().subscribe( (frequency)=>{
+		let response = frequency.json();
+		this.frequency = response.map(function(freq){
+			return freq.count 
+		});
+
+		this.labels = response.map(function(lab){
+			return lab._id.day
+		})
+
+		console.log(this.frequency);
+
+		this.data = {
+			labels: this.labels,
+			datasets: [
+				{
+				  label: "Days of month",
+				  data: this.frequency
+				}
+			]
+		};
+	} )
+	
+	
+	this.options = {
+		responsive: true,
+		maintainAspectRatio: false
+	};
+	
+  }
 
 }

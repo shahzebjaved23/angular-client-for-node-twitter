@@ -10,6 +10,7 @@ import { TweetsComponent } from './tweets/tweets.component';
 import { ChartComponent } from './chart/chart.component';
 import { PlayerinfoComponent } from './playerinfo/playerinfo.component';
 import { FormComponent } from './form/form.component';
+import { ChartModule } from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormComponent } from './form/form.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

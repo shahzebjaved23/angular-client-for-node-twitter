@@ -11,4 +11,9 @@ export class TweetsService {
 	getTweets(player:String,team:String,author:String){
 		return this.http.get(this.url+"/getTweetsByRest?player="+player+"&team="+team+"&author="+author)
 	}
+
+
+	getFrequency(){
+		return this.http.get(this.url+"/frequency");
+	}
 }
