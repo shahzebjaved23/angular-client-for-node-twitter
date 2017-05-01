@@ -29,7 +29,7 @@ export class ChartComponent implements OnInit {
 	this.tweetservice.getFrequency().subscribe( (frequency)=>{
 		let response = frequency.json();
 		this.frequency = response.map(function(freq){
-			return freq.count 
+			return freq.count
 		});
 
 		this.labels = response.map(function(lab){
@@ -39,11 +39,11 @@ export class ChartComponent implements OnInit {
 		console.log(this.frequency);
 
 		this.data = {
-			labels: this.labels,
+			labels: this.labels.reverse(),
 			datasets: [
 				{
 				  label: "Days of month",
-				  data: this.frequency
+				  data: this.frequency.reverse()
 				}
 			]
 		};

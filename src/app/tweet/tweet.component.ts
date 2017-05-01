@@ -1,6 +1,7 @@
 import { Component, OnInit , Input, ViewChild, ViewEncapsulation} from '@angular/core';
 import { TweetsService } from "../tweets.service";
 import * as $ from "jquery";
+import * as moment from "moment";
 
 
 @Component({
@@ -20,6 +21,7 @@ export class TweetComponent implements OnInit {
 
   ngOnInit() {
   	$(this.text.nativeElement).html(this.linkify(this.tweet.tweet.text))
+    this.tweet.created_at = moment(this.tweet.created_at).fromNow();
   }
 
   linkify(inputText: String){
