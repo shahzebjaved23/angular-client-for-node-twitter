@@ -1,4 +1,8 @@
 <div class="form-group">
+
+
+	
+
 	<div class="row">
 		<div class="col-md-4">
 			<label class="label-control">player</label>
@@ -13,6 +17,22 @@
 			<input #author class="form-control"/>
 		</div>
 	</div>
+
+	<div style="text-align: center ;margin: auto;padding: 50px 0 20px 0;" class="row">
+		<div class="col-md-6">
+			<label>Source</label>
+			<select class="source-select" #source>
+				<option value="" disabled selected>Select your option</option>
+				<option value="rest">Twitter Rest</option>
+				<option value="stream">Twitter Streaming</option>
+			</select>		
+		</div>	
+		<div class="col-md-6">
+			<label>Use Database</label>
+			<input type="checkbox" [(ngModel)]="useDb" checked="0" />
+		</div>
+	</div>
+
 </div>
 
 <div style="text-align: center;">

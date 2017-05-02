@@ -1,10 +1,10 @@
 <div class="tweet">
 	<div class="row">
 		<div class="col-md-2">
-			<img class="img img-responsive" style="padding-top: 10px;margin: auto;width: 80px;height: 80px;margin-top: 20px;" src="{{tweet.profile_image_url}}">
+			<img class="img img-responsive" style="padding-top: 10px;margin: auto;width: 80px;height: 80px;margin-top: 20px;" src="{{tweet.user.profile_image_url}}">
 		</div>
 		<div class="col-md-10">
-			<h1><a href="{{tweet.author_link}}">{{tweet.author}}</a></h1>
+			<h1><a href="{{tweet.user.url}}">{{tweet.user.name}}</a></h1>
 			<h5>{{tweet.created_at}}</h5>
 			<p #text></p>
 

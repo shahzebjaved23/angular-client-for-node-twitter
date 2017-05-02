@@ -39,11 +39,11 @@ export class ChartComponent implements OnInit {
 		console.log(this.frequency);
 
 		this.data = {
-			labels: this.labels.reverse(),
+			labels: this.labels,
 			datasets: [
 				{
 				  label: "Days of month",
-				  data: this.frequency.reverse()
+				  data: this.frequency
 				}
 			]
 		};

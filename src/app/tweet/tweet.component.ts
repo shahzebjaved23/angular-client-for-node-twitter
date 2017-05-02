@@ -20,7 +20,7 @@ export class TweetComponent implements OnInit {
   constructor(private tweetservice: TweetsService) { }
 
   ngOnInit() {
-  	$(this.text.nativeElement).html(this.linkify(this.tweet.tweet.text))
+  	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
     this.tweet.created_at = moment(this.tweet.created_at).fromNow();
   }
 

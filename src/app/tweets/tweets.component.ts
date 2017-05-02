@@ -29,16 +29,34 @@ export class TweetsComponent implements OnInit {
 
 		this.tweetsservice.buttonClickEmitter.subscribe(
 			(info)=>{
-				console.log("inside the button click emitter");
-				this.tweetsservice.getTweets(info.player,info.team,info.author).subscribe(
-					(tweets)=> {
-						console.log("inside the get tweets");
+				console.log(info);
+				if (info.useDb){
+					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.source).subscribe((tweets)=>{
 						this.tweets = tweets.json();
+					})
+				}else {
+					console.log("not using the db");
+					if(info.source == "rest"){
+						console.log("using the rest")
+						this.tweetsservice.getTweetsByRest(info.player,info.team,info.author).subscribe((tweets)=>{
+							this.tweets = tweets.json();
+						})
+					}else if(info.source == "stream"){
+						console.log("using the stream")
+						this.tweetsservice.getTweetsFromStream(info.player,info.team,info.author).subscribe((tweets)=>{
+							this.tweets = tweets.json();
+						})
 					}
-				)
+				}
+				console.log("inside the button click emitter");
 			}
 	    )
 
 	}
 
 }
+
+
+// getTweetsByRest
+// getTweetsFromStream
+// getTweetsFromDb
