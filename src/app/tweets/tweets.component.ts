@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TweetsService } from "../tweets.service";
+/// <reference path="../../typings/globals/socket.io-client/index.d.ts" /> 
+import * as io from 'socket.io-client';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-tweets',
@@ -12,41 +16,56 @@ export class TweetsComponent implements OnInit {
 	@Input() team: String;
 	@Input() author: String;
 
-
+	private socket;
+	private url = 'http://localhost:5000'
 
 	tweets: any[] = [];
 
 	constructor(private tweetsservice: TweetsService) { }
 
+	getTweetFromStream(){
+		let observable = new Observable(observer => {
+		  this.socket = io.connect(this.url);
+		  this.socket.on('tweet', (data) => {
+		    console.log(data);
+		    observer.next(data);    
+		  });
+		  
+		  return () => {
+		    this.socket.disconnect();
+		  };  
+		})     
+		return observable;
+	}  
+	
+
+
 	ngOnInit() {
 
+		this.socket = io.connect(this.url);
 
-		// this.tweetsservice.getTweets(this.player,this.team,this.author).subscribe(
-		// 	(tweets)=> {
-		// 		this.tweets = tweets.json();
-		// 	}
-		// );
+		this.socket.on("tweet",(data)=>{
+			if(this.tweets.indexOf(data.tweet) == -1){
+				this.tweets.unshift(data.tweet);
+				console.log(data);	
+			}
+		})
 
 		this.tweetsservice.buttonClickEmitter.subscribe(
 			(info)=>{
+		
 				console.log(info);
+
 				if (info.useDb){
-					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.source).subscribe((tweets)=>{
+					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author).subscribe((tweets)=>{
 						this.tweets = tweets.json();
 					})
 				}else {
 					console.log("not using the db");
-					if(info.source == "rest"){
-						console.log("using the rest")
-						this.tweetsservice.getTweetsByRest(info.player,info.team,info.author).subscribe((tweets)=>{
-							this.tweets = tweets.json();
-						})
-					}else if(info.source == "stream"){
-						console.log("using the stream")
-						this.tweetsservice.getTweetsFromStream(info.player,info.team,info.author).subscribe((tweets)=>{
-							this.tweets = tweets.json();
-						})
-					}
+					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author).subscribe((tweets)=>{
+						this.tweets = tweets.json();
+					})
+					
 				}
 				console.log("inside the button click emitter");
 			}

@@ -37,6 +37,7 @@ export class ChartComponent implements OnInit {
 		})
 
 		console.log(this.frequency);
+		console.log(this.labels);
 
 		this.data = {
 			labels: this.labels,

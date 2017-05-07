@@ -4,6 +4,7 @@ import * as $ from "jquery";
 import * as moment from "moment";
 
 
+
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
@@ -22,6 +23,8 @@ export class TweetComponent implements OnInit {
   ngOnInit() {
   	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
     this.tweet.created_at = moment(this.tweet.created_at).fromNow();
+
+
   }
 
   linkify(inputText: String){
@@ -50,7 +53,6 @@ export class TweetComponent implements OnInit {
   linkify_at_mentions(input:String){
     var replacePattern = /(^|\s|[^\w\d])@(\w+)/gim;
     var replacedText = input.replace(replacePattern,'$1<a href="http://domain.com/$2">@$2</a>') 
-    console.log(replacedText)
     return replacedText;
   } 
 
