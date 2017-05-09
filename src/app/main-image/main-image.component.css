@@ -1,6 +1,9 @@
 .hero {
 	text-align: center;
 	background-image: url("../../assets/img/hero.jpg");
+	background-repeat:no-repeat;
+	background-size: cover;
+	background-position:center;
 	height: 400px;
 	margin-bottom: 50px; 
 }

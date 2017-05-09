@@ -17,15 +17,14 @@ export class TweetsComponent implements OnInit {
 	@Input() author: String;
 
 	private socket;
-	private url = 'http://localhost:5000'
-
+	
 	tweets: any[] = [];
 
 	constructor(private tweetsservice: TweetsService) { }
 
 	getTweetFromStream(){
 		let observable = new Observable(observer => {
-		  this.socket = io.connect(this.url);
+		  this.socket = io.connect(this.tweetsservice.url);
 		  this.socket.on('tweet', (data) => {
 		    console.log(data);
 		    observer.next(data);    
@@ -42,7 +41,7 @@ export class TweetsComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.socket = io.connect(this.url);
+		this.socket = io.connect(this.tweetsservice.url);
 
 		this.socket.on("tweet",(data)=>{
 			if(this.tweets.indexOf(data.tweet) == -1){
@@ -57,12 +56,12 @@ export class TweetsComponent implements OnInit {
 				console.log(info);
 
 				if (info.useDb){
-					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author).subscribe((tweets)=>{
+					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
 					})
 				}else {
 					console.log("not using the db");
-					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author).subscribe((tweets)=>{
+					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
 					})
 					

@@ -17,10 +17,12 @@ export class FormComponent {
   player: string = "" ;
   team: string = "";
   author: string = "";
+  player_team_op: string = "AND";
+  team_author_op: string = "AND";
  
 
   onClickGetTransfers(){
-  	this.tweetservice.emitButtomClickEvent(this.player,this.team,this.author,this.useDb);
+  	this.tweetservice.emitButtomClickEvent(this.player,this.team,this.author,this.useDb,this.player_team_op,this.team_author_op);
   }
 
 }

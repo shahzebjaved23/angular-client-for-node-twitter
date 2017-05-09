@@ -26,29 +26,33 @@ export class ChartComponent implements OnInit {
 
 	this.type = 'line';
 
-	this.tweetservice.getFrequency().subscribe( (frequency)=>{
-		let response = frequency.json();
-		this.frequency = response.map(function(freq){
-			return freq.count
-		});
+	this.tweetservice.buttonClickEmitter.subscribe((queryInfo)=>{
+		this.tweetservice.getFrequency(queryInfo.player,queryInfo.team,queryInfo.author).subscribe( (frequency)=>{
+			let response = frequency.json();
+			this.frequency = response.map(function(freq){
+				return freq.count
+			});
 
-		this.labels = response.map(function(lab){
-			return lab._id.day
-		})
+			this.labels = response.map(function(lab){
+				return lab._id.day
+			})
 
-		console.log(this.frequency);
-		console.log(this.labels);
+			console.log(this.frequency);
+			console.log(this.labels);
 
-		this.data = {
-			labels: this.labels,
-			datasets: [
-				{
-				  label: "Days of month",
-				  data: this.frequency
-				}
-			]
-		};
-	} )
+			this.data = {
+				labels: this.labels,
+				datasets: [
+					{
+					  label: "Days of month",
+					  data: this.frequency
+					}
+				]
+			};
+		} )	
+	})
+
+	
 	
 	
 	this.options = {

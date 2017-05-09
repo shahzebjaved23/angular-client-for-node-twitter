@@ -1,9 +1,9 @@
 .navbar {
-	background-image: url("../../assets/img/bg-header.jpg");
 	border-radius: 0px;
 	border: none;
 	height: 100px;
 	margin-bottom: 0;
+	background-color: #020911;
 }
 
 .navbar-nav, .navbar-header {
