@@ -1,3 +1,7 @@
-<div *ngFor="let tweet of tweets">
+<div *ngFor="let tweet of tweets | paginate: { itemsPerPage: 10, currentPage: p }">
 	<app-tweet [tweet]="tweet"></app-tweet>
+</div>
+
+<div style="padding: 20px;margin: auto;">
+	<pagination-controls (pageChange)="p = $event"></pagination-controls>	
 </div>

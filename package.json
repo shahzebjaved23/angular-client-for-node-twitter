@@ -27,6 +27,7 @@
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
+    "ng2-pagination": "^2.0.1",
     "ng2-tweet": "0.0.16",
     "rxjs": "^5.1.0",
     "socket.io": "^1.7.4",

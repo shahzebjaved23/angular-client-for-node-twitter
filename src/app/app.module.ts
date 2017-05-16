@@ -14,6 +14,7 @@ import { FormComponent } from './form/form.component';
 import { ChartModule } from 'angular2-chartjs';
 import { MainImageComponent } from './main-image/main-image.component';
 import { Ng2TweetModule } from 'ng2-tweet/lib/index';
+import {Ng2PaginationModule} from 'ng2-pagination';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { Ng2TweetModule } from 'ng2-tweet/lib/index';
     HttpModule,
     JsonpModule,
     ChartModule,
-    Ng2TweetModule
+    Ng2TweetModule,
+    Ng2PaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

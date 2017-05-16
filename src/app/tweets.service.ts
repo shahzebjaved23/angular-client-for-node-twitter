@@ -35,7 +35,7 @@ export class TweetsService {
 	}
 
 	getFrequency(player: String, team: String , author: String){
-		return this.http.get(this.url+"/frequency");
+		return this.http.get(this.url+"/frequency?player="+player+"&team="+team+"&author="+author);
 	}
 
 	emitButtomClickEvent(player: String,team: String, author: String, useDb:boolean, player_team_op: String, team_author_op:String){
