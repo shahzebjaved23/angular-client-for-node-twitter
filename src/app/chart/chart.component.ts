@@ -27,7 +27,7 @@ export class ChartComponent implements OnInit {
 	this.type = 'line';
 
 	this.tweetservice.buttonClickEmitter.subscribe((queryInfo)=>{
-		this.tweetservice.getFrequency(queryInfo.player,queryInfo.team,queryInfo.author).subscribe( (frequency)=>{
+		this.tweetservice.getFrequency(queryInfo.player , queryInfo.team , queryInfo.author).subscribe( (frequency)=>{
 			let response = frequency.json();
 			this.frequency = response.map(function(freq){
 				return freq.count

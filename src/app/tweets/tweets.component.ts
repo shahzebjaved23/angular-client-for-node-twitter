@@ -46,7 +46,7 @@ export class TweetsComponent implements OnInit {
 		this.socket.on("tweet",(data)=>{
 			if(this.tweets.indexOf(data.tweet) == -1){
 				this.tweets.unshift(data.tweet);
-				console.log(data);	
+				// console.log(data);	
 			}
 		})
 
@@ -58,15 +58,18 @@ export class TweetsComponent implements OnInit {
 				if (info.useDb){
 					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
+						console.log(this.tweets.length);
 					})
 				}else {
 					console.log("not using the db");
 					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
+						console.log(this.tweets.length);
 					})
 					
 				}
 				console.log("inside the button click emitter");
+
 			}
 	    )
 

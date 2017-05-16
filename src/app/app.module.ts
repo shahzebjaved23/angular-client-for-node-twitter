@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule,JsonpModule } from '@angular/http';
+
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -12,6 +13,7 @@ import { PlayerinfoComponent } from './playerinfo/playerinfo.component';
 import { FormComponent } from './form/form.component';
 import { ChartModule } from 'angular2-chartjs';
 import { MainImageComponent } from './main-image/main-image.component';
+import { Ng2TweetModule } from 'ng2-tweet/lib/index';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MainImageComponent } from './main-image/main-image.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ChartModule
+    JsonpModule,
+    ChartModule,
+    Ng2TweetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,8 @@ import { Component, OnInit , Input, ViewChild, ViewEncapsulation} from '@angular
 import { TweetsService } from "../tweets.service";
 import * as $ from "jquery";
 import * as moment from "moment";
+import 'rxjs/add/operator/map';
+import { Ng2TweetService } from 'ng2-tweet/lib/index';
 
 
 
@@ -16,16 +18,124 @@ export class TweetComponent implements OnInit {
 
   @Input() tweet : any;
   @ViewChild('text') text;
+  @ViewChild('embedTweet') embedTweet;
+  @ViewChild('tweet_container') tweet_container;
+  @ViewChild("tweet_div") tweet_div;
 
 
-  constructor(private tweetservice: TweetsService) { }
+  constructor(private tweetservice: TweetsService,private ng2TweetService: Ng2TweetService) { }
 
   ngOnInit() {
   	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
     this.tweet.created_at = moment(this.tweet.created_at).fromNow();
 
+    console.log(this.tweet);
 
+    // $.ajax({
+    //   url: "https://api.twitter.com/1.1/statuses/oembed.json?id="+this.tweet.id,
+    //   dataType: "jsonp",
+    //   success: (data)=>{
+    //     console.log(data);
+    //     console.log(this.tweet_div);
+    //     $(this.tweet_div.nativeElement).html(data.html);
+    //   }
+    // });
   }
+
+   // ngAfterViewInit () {
+   //   console.log(window["twttr"]);
+   //   window["twttr"].widgets.createTweet(this.tweet.id, document.getElementById("tweet_container"), {});
+   //   this.ng2TweetService.LoadScript().subscribe(
+   //    //SUCCESS, WE HAVE TWITTER WIDGETS JS FILE LOADED...
+   //    twttr =>
+   //    {
+   //      let nativeElement = this.tweet_container.nativeElement;
+
+   //      console.log(window["twttr"]);
+
+   //      window["twttr"].widgets.createTweet(this.tweet.id, document.getElementById("tweet_container"), {}).then
+   //      (
+   //        function success(embed) 
+   //        {
+   //          console.log('Created tweet widget: ', embed);
+   //        } 
+   //      ).catch
+   //      (
+   //        function creationError(message) 
+   //        {
+   //          console.log('Could not create widget: ', message);
+   //        }
+   //      );        
+   //    },
+
+   //    //ERROR
+   //    err =>
+   //    {
+   //      console.log('****  ERROR LOADING TWITTER WIDGET', err);
+   //    },
+      
+   //    //COMPLETE
+   //    () =>
+   //    {
+   //      console.log("complete");     
+   //    }   )
+
+    // !function(d,s,id){
+    //             var js: any,
+    //                 fjs=d.getElementsByTagName(s)[0],
+    //                 p='https';
+    //             if(!d.getElementById(id)){
+    //                 js=d.createElement(s);
+    //                 js.id=id;
+    //                 js.src=p+"://platform.twitter.com/widgets.js";
+    //                 fjs.parentNode.insertBefore(js,fjs);
+    //             }
+    //         }
+    //         (document,"script","twitter-wjs");
+
+    // var twitter = (!function(d, s, id) {
+    //   var js, fjs = d.getElementsByTagName(s)[0],
+    //   t = twitter || {};
+    //   if (d.getElementById(id)) return t;
+    //   js = d.createElement(s);
+    //   js.id = id;
+    //   js.src = "https://platform.twitter.com/widgets.js";
+    //   fjs.parentNode.insertBefore(js, fjs);
+    
+    //   t._e = [];
+    //   t.ready = function(f) {
+    //     t._e.push(f);
+    //   };
+    
+    //   return t;
+    // }(document, "script", "twitter-wjs"));
+
+    // var twitter = !function(d,s,id){
+    //             var js: any,
+    //                 fjs=d.getElementsByTagName(s)[0],
+    //                 p='https';
+    //             if(!d.getElementById(id)){
+    //                 js=d.createElement(s);
+    //                 js.id=id;
+    //                 js.src=p+"://platform.twitter.com/widgets.js";
+    //                 fjs.parentNode.insertBefore(js,fjs);
+    //             }
+    //         }
+    //         (document,"script","twitter-wjs");
+
+    //         console.log(twitter);
+
+    // twitter.widgets.createTweet(
+    //       this.tweet.id,
+    //       document.getElementById('tweet-container'),
+    //       {
+    //         theme: 'dark'
+    //     });
+  
+  // }
+
+
+
 
   linkify(inputText: String){
 		var replacedText, replacePattern1, replacePattern2, replacePattern3;

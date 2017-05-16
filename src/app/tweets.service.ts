@@ -1,17 +1,30 @@
 import { Injectable , EventEmitter} from '@angular/core';
-import { Http } from '@angular/http';
+import { Http ,Jsonp, Headers, RequestOptions} from '@angular/http';
 import { eventInfo } from "./eventInfo.model";
+import { Observable } 			from 'rxjs/Rx';
 
 @Injectable()
 export class TweetsService {
 
+	readonly TWITTER_SCRIPT_ID = 'twitter-wjs';
+	readonly TWITTER_WIDGET_URL = 'https://platform.twitter.com/widgets.js';
+
 	buttonClickEmitter = new EventEmitter<eventInfo>();
 
-	constructor(private http: Http) { } 
+	constructor(private http: Http, private jsonp: Jsonp) { } 
 
-	url = "https://node-twitter-123.herokuapp.com"
+	// url = "https://node-twitter-123.herokuapp.com"
 
-	// url = "http://localhost:5000";
+	url = "http://localhost:5000";
+
+	getEmbedTweet(tweet){
+		// return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/"+tweet.user.screen_name+"/status/"+tweet.id);
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append("Access-Control-Allow-Origin","*");
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/Interior/status/507185938620219395",options);
+	}
 
 	getTweetsByRest(player:String,team:String,author:String,player_team_op:String,team_author_op:String){
 		return this.http.get(this.url+"/getTweetsByRest?player="+player+"&team="+team+"&author="+author+"&player_team_op="+player_team_op+"&team_author_op="+team_author_op);
@@ -30,4 +43,52 @@ export class TweetsService {
 		this.buttonClickEmitter.emit(info);
 		console.log(info);
 	}
+
+
+	LoadScript() : Observable<any> {
+        let that = this;
+
+		return Observable.create(observer => 
+		{
+            //START LOADING SCRIPT INTO DOM
+            that.startScriptLoad();
+
+            //WHEN TWITTER WIDGETS SCRIPT IS LOADED, THEN PASS ALONG....
+            window['twttr'].ready
+            (
+                function onLoadTwitterScript(twttr) 
+                {
+                    observer.next(twttr);
+                    observer.complete();
+                }
+            ); 
+        });
+    };
+
+
+    private startScriptLoad() 
+    {
+        window['twttr'] = (function(d, s, id, url) 
+        {
+            var js, 
+                fjs = d.getElementsByTagName(s)[0],
+                t = window['twttr'] || {};
+
+            if (d.getElementById(id)) return t;
+
+            js = d.createElement(s);
+            js.id = id;
+            js.src = url;
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            
+            t.ready = function(f) 
+            {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", this.TWITTER_SCRIPT_ID, this.TWITTER_WIDGET_URL));
+    }   
 }
