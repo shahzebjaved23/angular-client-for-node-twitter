@@ -13,9 +13,9 @@ export class TweetsService {
 
 	constructor(private http: Http, private jsonp: Jsonp) { } 
 
-	// url = "https://node-twitter-123.herokuapp.com"
+	url = "https://node-twitter-123.herokuapp.com"
 
-	url = "http://localhost:5000";
+	// url = "http://localhost:5000";
 
 	getEmbedTweet(tweet){
 		// return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/"+tweet.user.screen_name+"/status/"+tweet.id);
