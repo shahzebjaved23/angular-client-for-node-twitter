@@ -25,13 +25,28 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
-			<img style="max-height: 400px;margin:auto;padding-top: 10px;" class="img img-responsive" src="{{tweet.user.profile_background_image_url}}" alt="">
+		<div class="col-md-12" *ngIf="linkPreview">
+			<img style="max-height: 100px;margin:auto;padding-top: 10px;" class="img img-responsive" src="{{tweet.user.profile_background_image_url}}" alt="">
 		</div>
 	</div>
 
 	<div class="row">
-		<h5>{{tweet.created_at}}</h5>
+		<h5 style="padding-left: 30px;">{{tweet.created_at}}</h5>
+
+		<a href="{{linkPreview?.url}}" *ngIf="showLink" title="">
+			<div class="link-preview">
+				<div class="link-preview-image">
+					<img src="{{linkPreview?.images[0]}}" class="img img-responsive" style="max-height: 400px;margin:auto;" alt="">
+				</div>
+				<div class="link-preview-heading">
+					<h1>{{linkPreview?.heading}}</h1>
+				</div>
+				<div class="link-preview-description" style="padding:10px;">
+					<p>{{linkPreview?.description}}</p>
+				</div>
+			</div>	
+		</a>
+		
 		<p style="padding: 20px 30px 30px 30px;" #text></p>	
 	</div>
 </div>
@@ -39,5 +54,4 @@
 <!-- <ng2-tweet tweetId="{{tweet.id}}"></ng2-tweet> -->
 <!-- <div class="tweet_div" #tweet_div>
 	
-</div>
- -->
+</div> -->

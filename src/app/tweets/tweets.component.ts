@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { TweetsService } from "../tweets.service";
 /// <reference path="../../typings/globals/socket.io-client/index.d.ts" /> 
 import * as io from 'socket.io-client';
@@ -17,10 +17,9 @@ export class TweetsComponent implements OnInit {
 	@Input() author: String;
 
 	private socket;
-	
-	tweets: any[] = [];
+	private tweets;
 
-	constructor(private tweetsservice: TweetsService) { }
+	constructor(private cd: ChangeDetectorRef,private tweetsservice: TweetsService) { }
 
 	getTweetFromStream(){
 		let observable = new Observable(observer => {
@@ -50,28 +49,29 @@ export class TweetsComponent implements OnInit {
 			}
 		})
 
-		this.tweetsservice.buttonClickEmitter.subscribe(
-			(info)=>{
-		
+		this.tweetsservice.buttonClickEmitter.subscribe((info)=>{
+				this.tweets = null;
+				console.log(this.tweets);
 				console.log(info);
 
 				if (info.useDb){
 					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
 						console.log(this.tweets.length);
+						this.cd.markForCheck();
 					})
 				}else {
 					console.log("not using the db");
 					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
 						this.tweets = tweets.json();
 						console.log(this.tweets.length);
+						this.cd.markForCheck();
 					})
 					
 				}
 				console.log("inside the button click emitter");
-
-			}
-	    )
+				this.cd.markForCheck();
+			});
 
 	}
 

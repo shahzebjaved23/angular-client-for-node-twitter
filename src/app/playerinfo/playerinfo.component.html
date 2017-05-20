@@ -1,9 +1,10 @@
-<div class="player-info">
-	<h3>{{name}}</h3>
+<div class="player-info" *ngFor="let player of playerInfo?.results.bindings">
+	<h3>{{player.name.value}}</h3>
 	<ul>
-		<li>Date Of Birth : {{dateofbirth}}</li>
-		<li>Country Of Nationality : {{country}}</li>
-		<li>Position : {{position}}</li>
-		<li>Height : {{height}}</li>
+		<li>Date Of Birth : {{player.birthDate.value}}</li>
+		<li>Position : {{player.labelposition.value.replace("(association football)","")}}</li>
+		<li>Height : {{player.height.value}} cm</li>
+		<li>Club : {{player.clubName.value}} </li>
+		<li>Country : {{player.country.value}}</li>
 	</ul>
 </div>

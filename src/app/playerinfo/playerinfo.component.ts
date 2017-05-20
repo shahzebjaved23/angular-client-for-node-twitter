@@ -1,4 +1,5 @@
 import { Component, OnInit , Input} from '@angular/core';
+import { TweetsService } from "../tweets.service";
 
 @Component({
   selector: 'app-playerinfo',
@@ -7,15 +8,18 @@ import { Component, OnInit , Input} from '@angular/core';
 })
 export class PlayerinfoComponent implements OnInit {
 
-  @Input() name;
-  @Input() dateofbirth;
-  @Input() country;
-  @Input() position;
-  @Input() height; 
+  public playerInfo : any;
 
-  constructor() { }
+  constructor(private tweetservice: TweetsService) { }
 
   ngOnInit() {
-  }
+    this.tweetservice.buttonClickEmitter.subscribe((queryInfo)=>{
+      this.playerInfo = null;
+      this.tweetservice.getPlayerInfo(queryInfo.player).subscribe((playerInfo)=>{
+        this.playerInfo = playerInfo.json();
+        console.log(this.playerInfo);
+      });
+    })
+  }  
 
 }

@@ -2,9 +2,7 @@ import { Component, OnInit , Input, ViewChild, ViewEncapsulation} from '@angular
 import { TweetsService } from "../tweets.service";
 import * as $ from "jquery";
 import * as moment from "moment";
-import 'rxjs/add/operator/map';
 import { Ng2TweetService } from 'ng2-tweet/lib/index';
-
 
 
 @Component({
@@ -21,16 +19,50 @@ export class TweetComponent implements OnInit {
   @ViewChild('embedTweet') embedTweet;
   @ViewChild('tweet_container') tweet_container;
   @ViewChild("tweet_div") tweet_div;
-
-
+  
+  private linkPreview: any;
+  private showLink : boolean = false;
+  
   constructor(private tweetservice: TweetsService,private ng2TweetService: Ng2TweetService) { }
 
   ngOnInit() {
+     console.log(this.tweet.user.screen_name);
+
   	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
     this.tweet.created_at = moment(this.tweet.created_at).fromNow();
 
-    console.log(this.tweet);
+    // this.tweetservice.getEmbedTweet(this.tweet).subscribe((response)=>{
+    //   console.log(response.json());
+    // })
 
+   
+    var urls = this.tweet.text.match(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim);
+
+    if(urls != null){
+      this.tweetservice.getLinkPreview(urls[0]).subscribe((data)=>{
+        this.linkPreview = data.json().preview;
+        if(this.linkPreview.images){
+          this.showLink = this.linkPreview.images[0] != null;  
+        }
+      });  
+    }
+                
+// https://publish.twitter.com/oembed?url=https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id
+// https://api.twitter.com/1.1/statuses/oembed.json?id=
+
+  // this.tweetservice.getOmbed("https://publish.twitter.com/oembed?url=https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id).subscribe((data)=>{
+  //   console.log(data);
+  // })
+
+  //  this.tweetservice.getEmbedTweet(this.tweet).subscribe((data)=>{
+  //   console.log(data);
+  // })
+
+  //  this.tweetservice.getOmbed("https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id).subscribe((data)=>{
+  //   console.log(data.json());
+  // })
+
+    
     // $.ajax({
     //   url: "https://api.twitter.com/1.1/statuses/oembed.json?id="+this.tweet.id,
     //   dataType: "jsonp",

@@ -17,13 +17,22 @@ export class TweetsService {
 
 	// url = "http://localhost:5000";
 
+
+    getPlayerInfo(player){
+        return this.http.get(this.url+"/getSparqlQuery?player="+player);
+    }
+
+
+    getLinkPreview(url){
+        return this.http.get(this.url+"/linkpreview?url="+url)
+    }
+
+    getOmbed(url){
+        return this.http.get(this.url+"/getoEmbed?url="+url);
+    }
+
 	getEmbedTweet(tweet){
-		// return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/"+tweet.user.screen_name+"/status/"+tweet.id);
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append("Access-Control-Allow-Origin","*");
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/Interior/status/507185938620219395",options);
+		return this.http.get("https://publish.twitter.com/oembed?url=https://twitter.com/"+tweet.user.screen_name+"/status/"+tweet.id);
 	}
 
 	getTweetsByRest(player:String,team:String,author:String,player_team_op:String,team_author_op:String){
