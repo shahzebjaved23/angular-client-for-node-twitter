@@ -15,6 +15,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { MainImageComponent } from './main-image/main-image.component';
 import { Ng2TweetModule } from 'ng2-tweet/lib/index';
 import {Ng2PaginationModule} from 'ng2-pagination';
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {Ng2PaginationModule} from 'ng2-pagination';
     JsonpModule,
     ChartModule,
     Ng2TweetModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    NguiAutoCompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

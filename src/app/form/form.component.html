@@ -8,12 +8,15 @@
                 </div>
             </div>
             <div class="row">
+                <div #error class="error" style="display: none;width: 50%;text-align: center;margin: 20px auto;">
+                    <span>Player and Team cannot both be empty</span>
+                </div>
                 <div class="col-lg-8 col-lg-offset-2">
                     <div name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="name">Player</label>
-                                <input [(ngModel)]="player" type="text" class="form-control" placeholder="Player" />
+                                <input #playerInput auto-complete [source]="playerSource" [(ngModel)]="player" type="text" class="form-control" placeholder="Player" />
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -28,7 +31,7 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <input [(ngModel)]="team" type="text" class="form-control" placeholder="Team" />
+                                <input #teamInput auto-complete [source]="teamSource" [(ngModel)]="team" type="text" class="form-control" placeholder="Team" />
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>

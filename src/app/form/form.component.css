@@ -497,6 +497,14 @@ fieldset[disabled] .btn-success.active {
   opacity: 0;
   display: none;
 }
+
+.error{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ab0f0f;
+    color: #ab0f0f;
+}
+
 #skipnav a {
   padding: 6px;
   position: absolute;

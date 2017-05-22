@@ -20,7 +20,7 @@
 			<img style="padding-top: 30px;margin: auto;" class="img img-responsive" src="{{tweet.user.profile_image_url}}" />
 		</div>
 		<div class="col-md-10">
-			<h1><a href="{{tweet.user.url}}">{{tweet.user.name}}</a></h1>
+			<h1><a href="https://twitter.com/{{tweet.user.screen_name}}">{{tweet.user.name}}</a></h1>
 		</div>
 	</div>
 
@@ -46,8 +46,12 @@
 				</div>
 			</div>	
 		</a>
-		
 		<p style="padding: 20px 30px 30px 30px;" #text></p>	
+
+		<a style="padding: 20px 30px 30px 30px;" href="https://twitter.com/{{tweet.user.screen_name}}" title="">
+			<button type="button" class="btn btn-primary pull-right">Show More</button>
+		</a>
+	
 	</div>
 </div>
 

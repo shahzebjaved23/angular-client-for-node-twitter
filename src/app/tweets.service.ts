@@ -13,15 +13,22 @@ export class TweetsService {
 
 	constructor(private http: Http, private jsonp: Jsonp) { } 
 
-	url = "https://node-twitter-123.herokuapp.com"
+	// url = "https://node-twitter-123.herokuapp.com"
 
-	// url = "http://localhost:5000";
+	url = "http://localhost:5000";
 
+
+    getPlayerAutoComplete(name){
+        return this.http.get(this.url+"/playerAutoComplete?name="+name);
+    }
+
+    getTeamAutoComplete(name){
+        return this.http.get(this.url+"/teamAutoComplete?name="+name);
+    }
 
     getPlayerInfo(player){
         return this.http.get(this.url+"/getSparqlQuery?player="+player);
     }
-
 
     getLinkPreview(url){
         return this.http.get(this.url+"/linkpreview?url="+url)

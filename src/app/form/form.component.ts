@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { TweetsService } from "../tweets.service";
 import { eventInfo } from "../eventInfo.model";
 import * as $ from "jquery";
+import { playersource } from "../playersource";
+import { teamsource } from "../teamsource";
 
 
 @Component({
@@ -9,9 +11,17 @@ import * as $ from "jquery";
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
 
   constructor(private tweetservice : TweetsService) { }
+
+  private playerSource = playersource; 
+  private teamSource = teamsource ;
+
+
+  @ViewChild('playerInput') playerInput;
+  @ViewChild('teamInput') teamInput;
+  @ViewChild("error") error;
 
   useDb: boolean = false ;
   player: string = "" ;
@@ -19,10 +29,34 @@ export class FormComponent {
   author: string = "";
   player_team_op: string = "AND";
   team_author_op: string = "AND";
+
+
+  ngOnInit(){
+
+    // $(this.playerInput.nativeElement).keyup((e)=>{
+    //   this.tweetservice.getPlayerAutoComplete(this.player).subscribe((response)=>{
+    //     this.playerSource = response.json();
+    //   })
+    // });
+
+    // $(this.teamInput.nativeElement).keyup(()=>{
+    //   this.tweetservice.getTeamAutoComplete(this.team).subscribe((response)=>{
+    //     this.teamSource = response.json();
+    //   });
+    // });
+
+  }
  
 
   onClickGetTransfers(){
-  	this.tweetservice.emitButtomClickEvent(this.player,this.team,this.author,this.useDb,this.player_team_op,this.team_author_op);
+
+    if(this.player == "" && this.team == ""){
+      $(this.error.nativeElement).show();
+      $(this.playerInput.nativeElement).addClass("error");
+      $(this.teamInput.nativeElement).addClass("error");
+    }else{
+      this.tweetservice.emitButtomClickEvent(this.player,this.team,this.author,this.useDb,this.player_team_op,this.team_author_op);
+    }
   }
 
 }

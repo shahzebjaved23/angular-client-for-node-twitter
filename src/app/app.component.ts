@@ -16,5 +16,6 @@ export class AppComponent {
 
   constructor(private ng2TweetService:Ng2TweetService){
   	this.ng2TweetService.LoadScript();
+    
   }
 }

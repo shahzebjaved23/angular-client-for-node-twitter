@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "@ngui/auto-complete": "^0.13.2",
     "@types/chart.js": "^2.4.2",
     "@types/jquery": "^2.0.41",
     "angular2-chartjs": "^0.2.0",
