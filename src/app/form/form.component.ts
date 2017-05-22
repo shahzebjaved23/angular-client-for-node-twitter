@@ -51,10 +51,9 @@ export class FormComponent implements OnInit {
   onClickGetTransfers(){
 
     if(this.player == "" && this.team == ""){
-      $(this.error.nativeElement).show();
-      $(this.playerInput.nativeElement).addClass("error");
-      $(this.teamInput.nativeElement).addClass("error");
+      $(this.error.nativeElement).show();    
     }else{
+      $(this.error.nativeElement).hide();
       this.tweetservice.emitButtomClickEvent(this.player,this.team,this.author,this.useDb,this.player_team_op,this.team_author_op);
     }
   }
