@@ -36,7 +36,7 @@ export class TweetComponent implements OnInit {
     // })
 
    
-    var urls = this.tweet.text.match(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim);
+    var urls = this.tweet.text.match(/(\b(https|http):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim);
 
     if(urls != null){
       this.tweetservice.getLinkPreview(urls[0]).subscribe((data)=>{

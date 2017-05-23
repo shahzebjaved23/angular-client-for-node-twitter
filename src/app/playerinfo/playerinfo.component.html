@@ -1,10 +1,11 @@
-<div class="player-info" *ngFor="let player of playerInfo?.results.bindings">
-	<h3>{{player.name.value}}</h3>
+<div class="player-info" *ngFor="let player of playerInfo">
+	<h3 style="text-align: center;">{{player.name.value}}</h3>
+	<img src="{{player.image.value}}" class="img img-responsive" style="margin: auto;padding-bottom: 30px" alt="">
 	<ul>
 		<li>Date Of Birth : {{player.birthDate.value}}</li>
 		<li>Position : {{player.labelposition.value.replace("(association football)","")}}</li>
 		<li>Height : {{player.height.value}} cm</li>
 		<li>Club : {{player.clubName.value}} </li>
-		<li>Country : {{player.country.value}}</li>
+		<li>Birth Place : {{player.country.value}}</li>
 	</ul>
 </div>
