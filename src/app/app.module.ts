@@ -16,6 +16,7 @@ import { MainImageComponent } from './main-image/main-image.component';
 import { Ng2TweetModule } from 'ng2-tweet/lib/index';
 import {Ng2PaginationModule} from 'ng2-pagination';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import {RlTagInputModule} from 'angular2-tag-input';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
     ChartModule,
     Ng2TweetModule,
     Ng2PaginationModule,
-    NguiAutoCompleteModule
+    NguiAutoCompleteModule,
+    RlTagInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

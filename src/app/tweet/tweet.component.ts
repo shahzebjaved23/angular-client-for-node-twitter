@@ -28,13 +28,8 @@ export class TweetComponent implements OnInit {
   ngOnInit() {
      console.log(this.tweet.user.screen_name);
 
-  	$(this.text.nativeElement).html(this.linkify(this.tweet.text))
-    this.tweet.created_at = moment(this.tweet.created_at).fromNow();
-
-    // this.tweetservice.getEmbedTweet(this.tweet).subscribe((response)=>{
-    //   console.log(response.json());
-    // })
-
+  	// $(this.text.nativeElement).html(this.linkify(this.tweet.text))
+   //  this.tweet.created_at = moment.utc(this.tweet.created_at).format("h:mm a - MMM DD YYYY");
    
     var urls = this.tweet.text.match(/(\b(https|http):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim);
 
@@ -46,25 +41,9 @@ export class TweetComponent implements OnInit {
         }
       });  
     }
-                
-// https://publish.twitter.com/oembed?url=https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id
-// https://api.twitter.com/1.1/statuses/oembed.json?id=
-
-  // this.tweetservice.getOmbed("https://publish.twitter.com/oembed?url=https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id).subscribe((data)=>{
-  //   console.log(data);
-  // })
-
-  //  this.tweetservice.getEmbedTweet(this.tweet).subscribe((data)=>{
-  //   console.log(data);
-  // })
-
-  //  this.tweetservice.getOmbed("https://twitter.com/"+this.tweet.user.screen_name+"/statuses/"+this.tweet.id).subscribe((data)=>{
-  //   console.log(data.json());
-  // })
-
-    
+                    
     // $.ajax({
-    //   url: "https://api.twitter.com/1.1/statuses/oembed.json?id="+this.tweet.id,
+    //   url: "https://api.twitter.com/1.1/statuses/oembed.json?id="+this.tweet.id_str,
     //   dataType: "jsonp",
     //   success: (data)=>{
     //     console.log(data);
@@ -73,6 +52,30 @@ export class TweetComponent implements OnInit {
     //   }
     // });
   }
+
+   ngAfterViewInit () {
+      window["twttr"].ready(
+        (evt) => {
+          window["twttr"].widgets.createTweet(
+            this.tweet.id_str,
+            this.tweet_div.nativeElement,
+            {
+              theme: 'dark'
+          });
+        }
+      );
+
+      $(window).on('load', ()=>{
+        $('iframe[id^=twitter-widget-]').each(function () {
+          var head = $(this).contents().find('head');
+          if (head.length) {
+            head.append('<style>.timeline { max-width: 100% !important; width: 100% !important; } .timeline .stream { max-width: none !important; width: 100% !important; }</style>');
+          }
+          $('#twitter-widget-0').append($('<div class=timeline>'));
+        })
+      });
+         
+   }
 
    // ngAfterViewInit () {
    //   console.log(window["twttr"]);

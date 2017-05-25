@@ -6,6 +6,7 @@ import { playersource } from "../playersource";
 import { teamsource } from "../teamsource";
 
 
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -17,8 +18,8 @@ export class FormComponent implements OnInit {
 
   private playerSource = playersource; 
   private teamSource = teamsource ;
-
-
+  
+  
   @ViewChild('playerInput') playerInput;
   @ViewChild('teamInput') teamInput;
   @ViewChild("error") error;
@@ -26,9 +27,13 @@ export class FormComponent implements OnInit {
   useDb: boolean = false ;
   player: string = "" ;
   team: string = "";
+  players: string[] = [];
+  teams:string[] = [];
   author: string = "";
+  authors: string[] = [];
   player_team_op: string = "AND";
   team_author_op: string = "AND";
+  tags:string[] = ['AngularJS','Angluar2'];
 
 
   ngOnInit(){
@@ -47,9 +52,30 @@ export class FormComponent implements OnInit {
 
   }
  
-
   onClickGetTransfers(){
 
+    // Parse teams, to remove spaces
+    var newTeams = [];
+    this.teams.forEach(function(team){
+      newTeams.push(team.replace(" ",""))
+    })
+    this.team = newTeams.join(" ");
+
+    // parse players to remove ',' and empty spaces
+    var newPlayers = []; 
+    this.players.forEach(function(player){
+      newPlayers.push(player.replace(",","").replace(" ",","));
+    })
+    this.player = newPlayers.join(" ");
+
+    // parse authors to remove empty spaces
+    var newAuthors = [];
+    this.authors.forEach(function(author){
+      newAuthors.push(author.replace(" ",""));
+    })
+    this.author = newAuthors.join(" ");
+
+    // if players and team both empty then show error msg, else emit button click event
     if(this.player == "" && this.team == ""){
       $(this.error.nativeElement).show();    
     }else{

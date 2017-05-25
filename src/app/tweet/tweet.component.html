@@ -1,20 +1,4 @@
-<!-- <p>{{tweet.id}}</p> -->
-<!-- <div class="tweet">
-	<div class="row">
-		<div class="col-md-2">
-			<img class="img img-responsive" style="padding-top: 10px;margin: auto;width: 80px;height: 80px;margin-top: 20px;" src="{{tweet.user.profile_image_url}}">
-		</div>
-		<div class="col-md-10">
-			<h1><a href="{{tweet.user.url}}">{{tweet.user.name}}</a></h1>
-			<h5>{{tweet.created_at}}</h5>
-			<p #text></p>
-
-		</div>
-	</div>
-</div> -->
-
-
-<div class="custom-twitter-widget">
+<!-- <div class="custom-twitter-widget">
 	<div class="row">
 		<div class="col-md-2">
 			<img style="padding-top: 30px;margin: auto;" class="img img-responsive" src="{{tweet.user.profile_image_url}}" />
@@ -48,14 +32,13 @@
 		</a>
 		<p style="padding: 20px 30px 30px 30px;" #text></p>	
 
-		<a style="padding: 20px 30px 30px 30px;" href="https://twitter.com/{{tweet.user.screen_name}}" title="">
-			<button type="button" class="btn btn-primary pull-right">Show More</button>
+		<a  href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}" title="">
+			<button style="margin: 20px 30px 20px 30px;" type="button" class="btn btn-primary pull-right">Show More</button>
 		</a>
 	
 	</div>
-</div>
-
-<!-- <ng2-tweet tweetId="{{tweet.id}}"></ng2-tweet> -->
-<!-- <div class="tweet_div" #tweet_div>
-	
 </div> -->
+
+<div style="padding: 10px;" id="container" class="tweet_div" #tweet_div>
+	
+</div>

@@ -11,11 +11,68 @@
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-  <!-- <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-  <!-- <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-  <script src="./assets/js/bootstrap-linkpreview.js"></script>
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="./assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8" async defer></script>
+  <style type="text/css">
+
+ iframe[id^='twitter-widget-0'] {
+
+ height:600px !important;
+
+ margin-bottom:10px !important;
+
+ width:100% !important; 
+
+}
+
+</style>
+
+<script type="text/javascript">
+
+ $(window).on('load', function () {
+
+ $('iframe[id^=twitter-widget-]').each(function () {
+
+ var head = $(this).contents().find('head');
+
+ if (head.length) {
+
+ head.append('<style>.timeline { max-width: 100% !important; width: 100% !important; } .timeline .stream { max-width: none !important; width: 100% !important; }</style>');
+
+ }
+
+ $('#twitter-widget-0').append($('<div class=timeline>'));
+
+ })
+
+ });
+
+</script>
 </head>
 <body>
+
+  <script>
+    // START twttr initialization
+    window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+    
+      return t;
+    }(document, "script", "twitter-wjs"));
+    // END twttr initialization
+  </script>
+
+
 	 
   <app-root>Loading...</app-root>
 

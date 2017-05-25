@@ -1,11 +1,15 @@
 <div class="player-info" *ngFor="let player of playerInfo">
 	<h3 style="text-align: center;">{{player.name.value}}</h3>
-	<img src="{{player.image.value}}" class="img img-responsive" style="margin: auto;padding-bottom: 30px" alt="">
-	<ul>
-		<li>Date Of Birth : {{player.birthDate.value}}</li>
-		<li>Position : {{player.labelposition.value.replace("(association football)","")}}</li>
-		<li>Height : {{player.height.value}} cm</li>
-		<li>Club : {{player.clubName.value}} </li>
-		<li>Birth Place : {{player.country.value}}</li>
-	</ul>
+	<img src="{{player.image?.value}}" class="img img-responsive" style="margin: auto;padding-bottom: 30px" alt="">
+	<div style="list-style: none;margin: auto;text-align: center;">
+		<span>Date Of Birth : {{player.birthDate.value}}</span>
+		<hr>
+		<span>Position : {{player.labelposition.value.replace("(association football)","")}}</span>
+		<hr>
+		<span>Height : {{player.height.value}} cm</span>
+		<hr>
+		<span>Club : {{player.clubName.value}} </span>
+		<hr>
+		<span>Birth Place : {{player.country.value}}</span>
+	</div>
 </div>

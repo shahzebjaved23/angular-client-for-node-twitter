@@ -1,3 +1,5 @@
+<img src="../assets/img/11.gif" class="img img-responsive pull-right" #loader alt="loader">
+
 <div *ngFor="let tweet of tweets | paginate: { itemsPerPage: 10, currentPage: p }">
 	<app-tweet [tweet]="tweet"></app-tweet>
 </div>

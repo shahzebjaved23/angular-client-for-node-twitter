@@ -9,13 +9,8 @@ import { Ng2TweetService } from 'ng2-tweet/lib/index';
   providers: [TweetsService]
 })
 export class AppComponent {
-  title = 'app works!';
-  player = "Rooney";
-  team = "Manutd";
-  author = "";
-
+ 
   constructor(private ng2TweetService:Ng2TweetService){
-  	this.ng2TweetService.LoadScript();
-    
+  	this.ng2TweetService.LoadScript(); 
   }
 }

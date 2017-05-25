@@ -50,8 +50,8 @@ export class TweetsService {
 		return this.http.get(this.url+"/getTweetsFromDb?player="+player+"&team="+team+"&author="+author+"&player_team_op="+player_team_op+"&team_author_op="+team_author_op);
 	}
 
-	getFrequency(player: String, team: String , author: String){
-		return this.http.get(this.url+"/frequency?player="+player+"&team="+team+"&author="+author);
+	getFrequency(player: String, team: String , author: String, player_team_op: String, team_author_op: String){
+		return this.http.get(this.url+"/frequency?player="+player+"&team="+team+"&author="+author+"&player_team_op="+player_team_op+"&team_author_op="+team_author_op);
 	}
 
 	emitButtomClickEvent(player: String,team: String, author: String, useDb:boolean, player_team_op: String, team_author_op:String){
