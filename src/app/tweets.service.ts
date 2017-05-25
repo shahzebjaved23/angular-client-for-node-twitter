@@ -1,7 +1,8 @@
 import { Injectable , EventEmitter} from '@angular/core';
 import { Http ,Jsonp, Headers, RequestOptions} from '@angular/http';
 import { eventInfo } from "./eventInfo.model";
-import { Observable } 			from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import { chipsInfo } from "./chipsInfo.model";
 
 @Injectable()
 export class TweetsService {
@@ -10,14 +11,15 @@ export class TweetsService {
 	readonly TWITTER_WIDGET_URL = 'https://platform.twitter.com/widgets.js';
 
 	buttonClickEmitter = new EventEmitter<eventInfo>();
-
+    
+   
 	constructor(private http: Http, private jsonp: Jsonp) { } 
 
-	// url = "https://node-twitter-123.herokuapp.com"
+	url = "https://node-twitter-123.herokuapp.com"
 
-	url = "http://localhost:5000";
+	// url = "http://localhost:5000";
 
-
+   
     getPlayerAutoComplete(name){
         return this.http.get(this.url+"/playerAutoComplete?name="+name);
     }

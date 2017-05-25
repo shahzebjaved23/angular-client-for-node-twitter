@@ -1,0 +1,11 @@
+span.chip{
+	background-color: grey;
+	border-radius: 10px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+
+input:focus{
+	border:none;
+}

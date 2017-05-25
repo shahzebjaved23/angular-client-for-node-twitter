@@ -17,9 +17,7 @@
                     <div name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="name">Player</label>
-                                <rl-tag-input autocomplete="true" [autocompleteItems]="playerSource" [(ngModel)]="players" placeholder="Player   "></rl-tag-input>
-                                <!-- <input #playerInput auto-complete [source]="playerSource" [(ngModel)]="player" type="text" class="form-control" placeholder="Player" /> -->
+                                <app-chips (bindModelDataChange)="getPlayers($event)" [placeholder]="Player" [type]="typeplayer" [autocompleteSource]="playerSource"></app-chips>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -34,8 +32,7 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <rl-tag-input autocomplete="true" [autocompleteItems]="teamSource" [(ngModel)]="teams" placeholder="Team"></rl-tag-input>
-                                <!-- <input #teamInput auto-complete [source]="teamSource" [(ngModel)]="team" type="text" class="form-control" placeholder="Team" /> -->
+                                <app-chips (bindModelDataChange)="getTeams($event)" [placeholder]="Team" [type]="typeteam" [autocompleteSource]="teamSource"></app-chips>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -50,9 +47,9 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="phone">Author</label>
-                                <rl-tag-input [(ngModel)]="authors" placeholder="Author"></rl-tag-input>
-                                <!-- <input [(ngModel)]="author" type="text" class="form-control" placeholder="Author"/> -->
+                                
+                                <app-chips (bindModelDataChange)="getAuthors($event)" [placeholder]="Author" [type]="typeauthor"></app-chips>
+                            
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>

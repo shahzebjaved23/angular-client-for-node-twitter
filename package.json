@@ -30,6 +30,7 @@
     "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
     "link-preview": "^1.0.0",
     "moment": "^2.18.1",
     "ng2-chips": "0.0.13",

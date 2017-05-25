@@ -26,18 +26,18 @@ export class TweetsComponent implements OnInit {
 	constructor(private cd: ChangeDetectorRef,private tweetsservice: TweetsService) { }
 
 	getTweetFromStream(){
-		let observable = new Observable(observer => {
-		  this.socket = io.connect(this.tweetsservice.url);
-		  this.socket.on('tweet', (data) => {
-		    console.log(data);
-		    observer.next(data);    
-		  });
+		// let observable = new Observable(observer => {
+		//   this.socket = io.connect(this.tweetsservice.url);
+		//   this.socket.on('tweet', (data) => {
+		//     console.log(data);
+		//     observer.next(data);    
+		//   });
 		  
-		  return () => {
-		    this.socket.disconnect();
-		  };  
-		})     
-		return observable;
+		//   return () => {
+		//     this.socket.disconnect();
+		//   };  
+		// })     
+		// return observable;
 	}  
 	
 
@@ -46,43 +46,44 @@ export class TweetsComponent implements OnInit {
 
 		$(this.loader.nativeElement).hide();
 
-		this.socket = io.connect(this.tweetsservice.url);
+		// this.socket = io.connect(this.tweetsservice.url);
 
-		this.socket.on("tweet",(data)=>{
-			if(this.tweets.indexOf(data.tweet) == -1){
-				this.tweets.unshift(data.tweet);
-				// console.log(data);	
-			}
-		})
+		// this.socket.on("tweet",(data)=>{
+		// 	if(this.tweets.indexOf(data.tweet) == -1){
+		// 		this.tweets.unshift(data.tweet);
+		// 		// console.log(data);	
+		// 	}
+		// })
 
 		this.tweetsservice.buttonClickEmitter.subscribe((info)=>{
-				$(this.loader.nativeElement).show();
-				this.tweets = null;
-				console.log(this.tweets);
-				console.log(info);
+			$(this.loader.nativeElement).show();
+			this.tweets = null;
+			console.log(this.tweets);
+			console.log(info);
 
-				if (info.useDb){
-					this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
-						this.tweets = tweets.json();
-						console.log(this.tweets.length);
-						this.cd.markForCheck();
-						$(this.loader.nativeElement).hide();
-					})
-				}else {
-					console.log("not using the db");
-					this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
-						this.tweets = tweets.json();
-						console.log(this.tweets.length);
-						this.cd.markForCheck();
-						$(this.loader.nativeElement).hide();
-					})
-					
-				}
-				console.log("inside the button click emitter");
-				this.cd.markForCheck();
-			});
+			if (info.useDb){
+				this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
+					this.tweets = tweets.json();
+					console.log(this.tweets.length);
+					this.cd.markForCheck();
+					$(this.loader.nativeElement).hide();
+				})
+			}else {
+				console.log("not using the db");
+				this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
+					this.tweets = tweets.json();
+					console.log(this.tweets.length);
+					this.cd.markForCheck();
+					$(this.loader.nativeElement).hide();
+				})
+				
+			}
+			console.log("inside the button click emitter");
+			this.cd.markForCheck();
+		});
+			
 
-	}
+		}
 
 }
 

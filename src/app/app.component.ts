@@ -10,6 +10,9 @@ import { Ng2TweetService } from 'ng2-tweet/lib/index';
 })
 export class AppComponent {
  
+  
+
+
   constructor(private ng2TweetService:Ng2TweetService){
   	this.ng2TweetService.LoadScript(); 
   }

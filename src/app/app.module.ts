@@ -15,8 +15,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { MainImageComponent } from './main-image/main-image.component';
 import { Ng2TweetModule } from 'ng2-tweet/lib/index';
 import {Ng2PaginationModule} from 'ng2-pagination';
-import { NguiAutoCompleteModule } from '@ngui/auto-complete';
-import {RlTagInputModule} from 'angular2-tag-input';
+import { ChipsComponent } from './chips/chips.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,8 @@ import {RlTagInputModule} from 'angular2-tag-input';
     ChartComponent,
     PlayerinfoComponent,
     FormComponent,
-    MainImageComponent
+    MainImageComponent,
+    ChipsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +36,7 @@ import {RlTagInputModule} from 'angular2-tag-input';
     JsonpModule,
     ChartModule,
     Ng2TweetModule,
-    Ng2PaginationModule,
-    NguiAutoCompleteModule,
-    RlTagInputModule
+    Ng2PaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

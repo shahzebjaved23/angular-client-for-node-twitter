@@ -7,6 +7,10 @@
     box-shadow: 0 1px 14px -6px #000; 
 }
 
+input:focus{
+    outline: none;
+}
+
 
 .SandboxRoot{
 	width: 100% !important;
