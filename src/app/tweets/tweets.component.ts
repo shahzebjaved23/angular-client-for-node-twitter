@@ -26,18 +26,18 @@ export class TweetsComponent implements OnInit {
 	constructor(private cd: ChangeDetectorRef,private tweetsservice: TweetsService) { }
 
 	getTweetFromStream(){
-		// let observable = new Observable(observer => {
-		//   this.socket = io.connect(this.tweetsservice.url);
-		//   this.socket.on('tweet', (data) => {
-		//     console.log(data);
-		//     observer.next(data);    
-		//   });
+		let observable = new Observable(observer => {
+		  this.socket = io.connect(this.tweetsservice.url);
+		  this.socket.on('tweet', (data) => {
+		    console.log(data);
+		    observer.next(data);    
+		  });
 		  
-		//   return () => {
-		//     this.socket.disconnect();
-		//   };  
-		// })     
-		// return observable;
+		  return () => {
+		    this.socket.disconnect();
+		  };  
+		})     
+		return observable;
 	}  
 	
 
@@ -46,14 +46,14 @@ export class TweetsComponent implements OnInit {
 
 		$(this.loader.nativeElement).hide();
 
-		// this.socket = io.connect(this.tweetsservice.url);
+		this.socket = io.connect(this.tweetsservice.url);
 
-		// this.socket.on("tweet",(data)=>{
-		// 	if(this.tweets.indexOf(data.tweet) == -1){
-		// 		this.tweets.unshift(data.tweet);
-		// 		// console.log(data);	
-		// 	}
-		// })
+		this.socket.on("tweet",(data)=>{
+			if(this.tweets.indexOf(data.tweet) == -1){
+				this.tweets.unshift(data.tweet);
+				// console.log(data);	
+			}
+		})
 
 		this.tweetsservice.buttonClickEmitter.subscribe((info)=>{
 			$(this.loader.nativeElement).show();
@@ -86,8 +86,3 @@ export class TweetsComponent implements OnInit {
 		}
 
 }
-
-
-// getTweetsByRest
-// getTweetsFromStream
-// getTweetsFromDb

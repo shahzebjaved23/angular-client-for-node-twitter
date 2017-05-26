@@ -53,9 +53,9 @@ export class FormComponent implements OnInit {
   Author = "Author";
   teamcount:number = 0;
   playercount:number = 0;
-  eventplayers;
-  eventteams;
-  eventauthors;
+  eventplayers = "";
+  eventteams = "";
+  eventauthors = "";
 
   getPlayers(event){
       this.eventplayers = event;
@@ -71,7 +71,18 @@ export class FormComponent implements OnInit {
       this.eventauthors = event;
   }
 
-  ngOnInit(){ }
+  ngOnInit(){ 
+    this.tweetservice.chipifyiedEmitter.subscribe((data)=>{
+      
+      console.log(this.eventplayers);
+      if(this.eventplayers == "" && this.eventteams == ""){
+        $(this.error.nativeElement).show();    
+      }else{
+        $(this.error.nativeElement).hide();
+        this.tweetservice.emitButtomClickEvent(this.eventplayers,this.eventteams,this.eventauthors,this.useDb,this.player_team_op,this.team_author_op);
+      }  
+    })
+  }
  
   onClickGetTransfers(){
     // Parse teams, to remove spaces
@@ -95,21 +106,11 @@ export class FormComponent implements OnInit {
     })
     this.author = newAuthors.join(" ");
 
-    // if players and team both empty then show error msg, else emit button click event
-    // if(this.player == "" && this.team == ""){
-    //   $(this.error.nativeElement).show();    
-    // }else{
-    //   $(this.error.nativeElement).hide();
-    //   this.tweetservice.emitButtomClickEvent(this.eventplayers,this.eventteams,this.author,this.useDb,this.player_team_op,this.team_author_op);
-    // }
+    this.tweetservice.requestChipify();
 
-    // if(this.player == "" && this.team == ""){
-    //   $(this.error.nativeElement).show();    
-    // }else{
-    //   $(this.error.nativeElement).hide();
-      this.tweetservice.emitButtomClickEvent(this.eventplayers,this.eventteams,this.eventauthors,this.useDb,this.player_team_op,this.team_author_op);
-    // }
-     
+    console.log(this.eventplayers);
+    console.log(this.eventteams);
+    console.log(this.eventauthors);
+
   }
-
 }

@@ -15,10 +15,12 @@ export class PlayerinfoComponent implements OnInit {
   ngOnInit() {
     this.tweetservice.buttonClickEmitter.subscribe((queryInfo)=>{
       this.playerInfo = null;
-      this.tweetservice.getPlayerInfo(queryInfo.player.replace(" ","|").replace(","," ")).subscribe((playerInfo)=>{
-        this.playerInfo = playerInfo.json();
-        console.log(this.playerInfo);
-      });
+      if(queryInfo.player != ""){
+        this.tweetservice.getPlayerInfo(queryInfo.player.replace(" ","|").replace(","," ")).subscribe((playerInfo)=>{
+          this.playerInfo = playerInfo.json();
+          console.log(this.playerInfo);
+        });  
+      }
     })
   }  
 

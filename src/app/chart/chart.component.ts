@@ -48,7 +48,7 @@ export class ChartComponent implements OnInit {
 				labels: this.labels,
 				datasets: [
 					{
-					  label: "Days of month",
+					  label: "Number Of Tweets",
 					  data: this.frequency
 					}
 				]

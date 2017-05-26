@@ -33,14 +33,14 @@ export class TweetComponent implements OnInit {
    
     var urls = this.tweet.text.match(/(\b(https|http):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim);
 
-    if(urls != null){
-      this.tweetservice.getLinkPreview(urls[0]).subscribe((data)=>{
-        this.linkPreview = data.json().preview;
-        if(this.linkPreview.images){
-          this.showLink = this.linkPreview.images[0] != null;  
-        }
-      });  
-    }
+    // if(urls != null){
+    //   this.tweetservice.getLinkPreview(urls[0]).subscribe((data)=>{
+    //     this.linkPreview = data.json().preview;
+    //     if(this.linkPreview.images){
+    //       this.showLink = this.linkPreview.images[0] != null;  
+    //     }
+    //   });  
+    // }
                     
     // $.ajax({
     //   url: "https://api.twitter.com/1.1/statuses/oembed.json?id="+this.tweet.id_str,

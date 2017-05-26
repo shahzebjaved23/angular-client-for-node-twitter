@@ -11,6 +11,8 @@ export class TweetsService {
 	readonly TWITTER_WIDGET_URL = 'https://platform.twitter.com/widgets.js';
 
 	buttonClickEmitter = new EventEmitter<eventInfo>();
+    chipifyiedEmitter = new EventEmitter<string>();
+    requestChipifyEmitter = new EventEmitter<string>();
     
    
 	constructor(private http: Http, private jsonp: Jsonp) { } 
@@ -18,6 +20,14 @@ export class TweetsService {
 	url = "https://node-twitter-123.herokuapp.com"
 
 	// url = "http://localhost:5000";
+
+    requestChipify(){
+        this.requestChipifyEmitter.emit("chipify");
+    }
+
+    emitChipified(){
+        this.chipifyiedEmitter.emit("chipified");
+    }
 
    
     getPlayerAutoComplete(name){
