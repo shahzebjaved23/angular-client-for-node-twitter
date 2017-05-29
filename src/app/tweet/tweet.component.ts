@@ -12,6 +12,8 @@ import { Ng2TweetService } from 'ng2-tweet/lib/index';
   providers: [TweetComponent],
   encapsulation: ViewEncapsulation.None
 })
+
+/* displays the tweet widget */
 export class TweetComponent implements OnInit {
 
   @Input() tweet : any;
@@ -53,6 +55,7 @@ export class TweetComponent implements OnInit {
     // });
   }
 
+  /* uses the twitter javascript to create the widget, with dark theme*/
    ngAfterViewInit () {
       window["twttr"].ready(
         (evt) => {
@@ -171,7 +174,10 @@ export class TweetComponent implements OnInit {
 
 
 
-
+   /*
+   * custom method to replace the links in the text, with anchor tags with the corresponding href
+   * linkifies the text
+   */
   linkify(inputText: String){
 		var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
@@ -195,12 +201,14 @@ export class TweetComponent implements OnInit {
 		return replacedhash;
   }
 
+  /* linkifies the @mentions */ 
   linkify_at_mentions(input:String){
     var replacePattern = /(^|\s|[^\w\d])@(\w+)/gim;
     var replacedText = input.replace(replacePattern,'$1<a href="http://domain.com/$2">@$2</a>') 
     return replacedText;
   } 
 
+  /* linkifies the #hash tags */
   linkify_hash_tags(input:String){
     var replacePatterns = /(^|\s|[^\w\d])#(\w+)/gim;
     var replacedText = input.replace(replacePatterns,'$1<a href="http://domain.com/$2">#$2</a>')

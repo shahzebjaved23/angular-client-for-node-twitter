@@ -1,7 +1,6 @@
 <div style="padding-left: 15px" #mainRow class="row"> 
 	<span #chipsDiv></span>	
-	<input [ngModel]=bindModelData (ngModelChange)="updateData($event)" placeholder="{{placeholder}}" style="background-color: #f0f0f0; border: none;font-size: 16px;" id="{{type}}" #textInput/>
-    <!-- <input #textInput auto-complete [source]="autoCompleteSource" type="text" class="form-control" placeholder="{{placeholder}}" /> -->
+	<input  (ngModelChange)="updateData($event)" placeholder="{{placeholder}}" style="background-color: #f0f0f0; border: none;font-size: 16px;" id="{{type}}" #textInput/>
 </div>
 
 

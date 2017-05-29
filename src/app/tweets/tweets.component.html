@@ -1,9 +1,17 @@
 <img src="../assets/img/11.gif" class="img img-responsive pull-right" #loader alt="loader">
 
-<div *ngFor="let tweet of tweets | paginate: { itemsPerPage: 10, currentPage: p }">
-	<app-tweet [tweet]="tweet"></app-tweet>
+<div *ngIf="yestweets">
+	<div *ngFor="let tweet of tweets | paginate: { itemsPerPage: 10, currentPage: p }">
+		<app-tweet [tweet]="tweet"></app-tweet>
+	</div>
+
+	<div style="padding: 20px;margin: auto;">
+		<pagination-controls (pageChange)="p = $event"></pagination-controls>	
+	</div>	
 </div>
 
-<div style="padding: 20px;margin: auto;">
-	<pagination-controls (pageChange)="p = $event"></pagination-controls>	
+
+<div *ngIf="notweets">
+	<p>No tweets were found</p>
 </div>
+

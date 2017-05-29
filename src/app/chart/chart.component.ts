@@ -8,14 +8,19 @@ import { TweetsService } from "../tweets.service";
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
+
+/*
+* Chart component
+*/
 export class ChartComponent implements OnInit {
 
 
-	type;
-	data;
-	options;
-	frequency;
-	labels;
+
+  type; // the type of the chart
+  data; // the data for the chart
+  options; // chart options
+  frequency; // frequency, which is the data set the chart displays 
+  labels; // label for the chart
  
 
   @ViewChild('line') line: ElementRef;

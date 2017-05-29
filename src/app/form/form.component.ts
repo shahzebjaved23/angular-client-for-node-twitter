@@ -21,7 +21,12 @@ export class FormComponent implements OnInit {
 
   private playerSource = playersource; 
   private teamSource = teamsource ;
+  private count = 0;
+  private stream : string = "yes";
   
+  /*
+  * Element references for the view tamplate
+  */
 
   @ViewChild('playerInput') playerInput: ElementRef;
   @ViewChild('teamInput') teamInput: ElementRef;
@@ -35,6 +40,9 @@ export class FormComponent implements OnInit {
   @ViewChild("textInput") playertextInput: ElementRef;
   @ViewChild("chipsDiv") playerchipsDiv: ElementRef;
 
+  /*
+  * public variables 
+  */
   useDb: boolean = false ;
   player: string = "some" ;
   team: string = "eoms";
@@ -57,33 +65,55 @@ export class FormComponent implements OnInit {
   eventteams = "";
   eventauthors = "";
 
+  /* 
+  * listens to the player chips events 
+  */
   getPlayers(event){
       this.eventplayers = event;
       console.log(this.eventplayers)
   }
 
+  /* 
+  * listens to the team chips events 
+  */
   getTeams(event){
       this.eventteams = event;
       console.log(this.eventteams);
   }
 
+  /* 
+  * listens to the author chips events 
+  */
   getAuthors(event){
       this.eventauthors = event;
   }
 
   ngOnInit(){ 
+
+    /*
+    * subscribe to the chiffied emitter , emit the button click event when chipified
+    */ 
     this.tweetservice.chipifyiedEmitter.subscribe((data)=>{
       
-      console.log(this.eventplayers);
-      if(this.eventplayers == "" && this.eventteams == ""){
-        $(this.error.nativeElement).show();    
-      }else{
-        $(this.error.nativeElement).hide();
-        this.tweetservice.emitButtomClickEvent(this.eventplayers,this.eventteams,this.eventauthors,this.useDb,this.player_team_op,this.team_author_op);
-      }  
+      // this.count = this.count + 1;
+      // setTimeout(()=>{
+      //   this.stream = "no";
+      // },100*1000);
+      // if(this.eventplayers == "" && this.eventteams == ""){
+      //   $(this.error.nativeElement).show();    
+      // }else{
+      //   $(this.error.nativeElement).hide();
+        console.log("event player");
+        console.log(this.eventplayers);
+        this.tweetservice.emitButtomClickEvent(this.eventplayers,this.eventteams,this.eventauthors,this.useDb,this.player_team_op,this.team_author_op,this.count,this.stream);
+      // }  
     })
   }
  
+  /*
+  * listens for get tweets button click event
+  * emits the request chipify event 
+  */
   onClickGetTransfers(){
     // Parse teams, to remove spaces
     var newTeams = [];
@@ -107,10 +137,5 @@ export class FormComponent implements OnInit {
     this.author = newAuthors.join(" ");
 
     this.tweetservice.requestChipify();
-
-    console.log(this.eventplayers);
-    console.log(this.eventteams);
-    console.log(this.eventauthors);
-
   }
 }

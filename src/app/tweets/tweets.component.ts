@@ -12,6 +12,10 @@ import  * as $ from "jquery";
   templateUrl: './tweets.component.html',
   styleUrls: ['./tweets.component.css']
 })
+
+/* 
+*	gets the tweets from the api and for each call the tweet widget
+*/ 
 export class TweetsComponent implements OnInit {
 
 	@Input() player: String;
@@ -22,9 +26,12 @@ export class TweetsComponent implements OnInit {
 
 	private socket;
 	private tweets;
+	private notweets = false;
+	private yestweets = true;
 
 	constructor(private cd: ChangeDetectorRef,private tweetsservice: TweetsService) { }
 
+	// connect the tweet stream api with socket io
 	getTweetFromStream(){
 		let observable = new Observable(observer => {
 		  this.socket = io.connect(this.tweetsservice.url);
@@ -42,12 +49,20 @@ export class TweetsComponent implements OnInit {
 	
 
 
+	/*
+	* on init, connect to the socket
+	* subscribe to the button click event
+	* when button clicked, get all the tweets
+	*/
 	ngOnInit() {
 
+		// hide the loader
 		$(this.loader.nativeElement).hide();
 
+		// connect to the socket
 		this.socket = io.connect(this.tweetsservice.url);
 
+		// listen to the tweet event
 		this.socket.on("tweet",(data)=>{
 			if(this.tweets.indexOf(data.tweet) == -1){
 				this.tweets.unshift(data.tweet);
@@ -55,6 +70,7 @@ export class TweetsComponent implements OnInit {
 			}
 		})
 
+		// subscribe to the get tweets button click event
 		this.tweetsservice.buttonClickEmitter.subscribe((info)=>{
 			$(this.loader.nativeElement).show();
 			this.tweets = null;
@@ -62,19 +78,39 @@ export class TweetsComponent implements OnInit {
 			console.log(info);
 
 			if (info.useDb){
-				this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
+				// if useDb, get tweets from db
+				this.tweetsservice.getTweetsFromDb(info.player,info.team,info.author,info.player_team_op,info.team_author_op,info.count,info.stream).subscribe((tweets)=>{
 					this.tweets = tweets.json();
 					console.log(this.tweets.length);
 					this.cd.markForCheck();
+					if(this.tweets.length == 0){
+						this.notweets = true;
+						this.yestweets = false;
+					}else{
+						this.yestweets = true;
+						this.notweets = false;
+					}
 					$(this.loader.nativeElement).hide();
+					console.log(this.notweets);
+					console.log(this.yestweets);
 				})
 			}else {
+				// else get tweet from rest api
 				console.log("not using the db");
-				this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op).subscribe((tweets)=>{
+				this.tweetsservice.getTweetsByRest(info.player,info.team,info.author,info.player_team_op,info.team_author_op,info.count,info.stream).subscribe((tweets)=>{
 					this.tweets = tweets.json();
 					console.log(this.tweets.length);
 					this.cd.markForCheck();
+					if(this.tweets.length == 0){
+						this.notweets = true;
+						this.yestweets = false;
+					}else{
+						this.yestweets = true;
+						this.notweets = false;
+					}
 					$(this.loader.nativeElement).hide();
+					console.log(this.notweets);
+					console.log(this.yestweets);
 				})
 				
 			}
@@ -83,6 +119,6 @@ export class TweetsComponent implements OnInit {
 		});
 			
 
-		}
+	}
 
 }
